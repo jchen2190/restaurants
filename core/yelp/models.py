@@ -17,6 +17,13 @@ class Restaurant(models.Model):
     price = models.CharField(max_length=10, blank=True)
     rating = models.FloatField()
     phone = models.CharField(max_length=20, blank=True)
+    tag = models.ManyToManyField('Tag', blank=True, default="good")
 
     def __str__(self):
         return str(self.name)
+    
+class Tag(models.Model):
+    tag_field = models.CharField(max_length = 200, blank=False)
+
+    def __str__(self):
+        return str(self.tag_field)
