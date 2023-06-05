@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from yelp.views import homepage, TagFilterListView
+from yelp.views import homepage, PostDetailView, TagFilterListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage, name="homepage"),
+    path("<int:pk>/", PostDetailView.as_view(), name="posts-detail"),
     path('tag/', TagFilterListView.as_view(), kwargs={"tag":""}, name="tag-search")
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

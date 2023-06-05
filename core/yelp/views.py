@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Restaurant, Tag
 
 # Create your views here.
@@ -27,3 +27,8 @@ class TagFilterListView(ListView):
         results = Restaurant.objects.filter(tag=tag)
         context["restaurants"] = results
         return context
+
+class PostDetailView(DetailView):
+    model = Restaurant
+    template_name = "post_detail.html"
+    context_object_name = "object"

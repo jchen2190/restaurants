@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -21,6 +22,9 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+    def get_absolute_url(self):
+        return reverse("posts-detail", kwargs={"pk":self.id})
     
 class Tag(models.Model):
     tag_field = models.CharField(max_length = 200, blank=False)

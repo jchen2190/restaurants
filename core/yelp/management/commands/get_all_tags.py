@@ -18,7 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         objects = Restaurant.objects.all()
         categories = set([r.category for r in objects])
-        prices = set([r.price for r in objects])
+        # prices = set([r.price for r in objects])
 
         for cat in categories:
             obj, created = Tag.objects.get_or_create(

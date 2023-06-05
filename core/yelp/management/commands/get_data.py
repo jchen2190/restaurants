@@ -8,7 +8,7 @@ API_KEY = config("API_KEY")
 def callAPI():
     headers = {'Authorization': f'Bearer {API_KEY}'}
     params = {'term': 'restaurant',
-                'location': 'Chicago',
+                'location': 'New York City',
                 'limit' : 50
             }
     URL = 'https://api.yelp.com/v3/businesses/search'
@@ -43,7 +43,19 @@ class Command(BaseCommand):
                     rating = float(business.get('rating')),
                     phone = business.get('phone', 'No info'),
                 )
-            print(obj, created) # obj = name of restaurant (str from model),  created = true/false
+            # print(obj, created) # obj = name of restaurant (str from model),  created = true/false
+        
+        objects = Restaurant.objects.all()
+        categories = set([r.category for r in objects])
+
+        for c in categories:
+            obj, created = Tag.objects.get_or_create(tag_field = c)
+            # print(obj, created)
+        
+        for obj in objects:
             restaurant = Restaurant.objects.get(id=obj.id)
-            tag_id = addTag(business.get('categories', 'No Category')[0]['alias'])
+
+            # tag_id = addTag(obj.get('categories', 'No Category')[0]['alias'])
+            tag_id = addTag(obj.category)
             restaurant.tag.set([tag_id])
+            # print(restaurant.tag.all())
