@@ -8,8 +8,9 @@ def homepage(request):
     if request.method == "GET":
         restaurants = Restaurant.objects.all()
         all_tags = set([tag.tag_field for tag in Tag.objects.all()])
-        context = {"restaurants": restaurants,
-                   "all_tags": all_tags
+        context = {
+                    "restaurants": restaurants,
+                    "all_tags": all_tags
                    }
         return render(request, "index.html", context)
     else:

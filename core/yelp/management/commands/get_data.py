@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from yelp.models import Restaurant
+from yelp.models import Restaurant, Tag
 import requests
 from decouple import config
 
@@ -8,7 +8,7 @@ API_KEY = config("API_KEY")
 def callAPI():
     headers = {'Authorization': f'Bearer {API_KEY}'}
     params = {'term': 'restaurant',
-                'location': 'New York City',
+                'location': 'Chicago',
                 'limit' : 50
             }
     URL = 'https://api.yelp.com/v3/businesses/search'
@@ -16,6 +16,10 @@ def callAPI():
     data = res.json()
     data = data['businesses']
     return data
+
+def addTag(tag):
+    tag_id = Tag.objects.get(tag_field = tag)
+    return tag_id.id
 
 class Command(BaseCommand):
     help = "Get data from Yelp API"
@@ -37,6 +41,9 @@ class Command(BaseCommand):
                     review_count =  business.get('review_count', 'No reviews'),
                     price = business.get('price', 'No info'),
                     rating = float(business.get('rating')),
-                    phone = business.get('phone', 'No info')
+                    phone = business.get('phone', 'No info'),
                 )
             print(obj, created) # obj = name of restaurant (str from model),  created = true/false
+            restaurant = Restaurant.objects.get(id=obj.id)
+            tag_id = addTag(business.get('categories', 'No Category')[0]['alias'])
+            restaurant.tag.set([tag_id])

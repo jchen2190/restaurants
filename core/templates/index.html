@@ -44,6 +44,33 @@
       </div>
     </nav>
 
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Album example</h1>
+          <p class="lead text-body-secondary">
+            {% for tag in all_tags %} 
+              <a href="{% url 'tag-search' %}?tag={{tag}} "><button type="button" class="btn btn-primary">{{tag}}</button></a>
+            {% endfor %}
+  
+          </p>
+          <p>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown link
+              </a>
+            
+              <ul class="dropdown-menu">
+                <!-- {% for s in subjects %}
+                  <li><a class="dropdown-item" href="{% url 'subject-search' %}?mysubject={{s}}">{{s}}</a></li>
+                {% endfor %} -->
+              </ul>
+            </div>
+          </p>
+        </div>
+      </div>
+    </section>
+
     <div class="container my-5">
       <h1>Hello, world!</h1>
       <div class="col-lg-8 px-0">
