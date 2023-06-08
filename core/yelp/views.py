@@ -32,3 +32,16 @@ class PostDetailView(DetailView):
     model = Restaurant
     template_name = "post_detail.html"
     context_object_name = "object"
+
+
+# from django.db.models import Q
+# from myapp.models import MyModel
+# # Assuming you have a ‘tags’ field in your model representing the tags
+# tag1 = ‘tag1’
+# tag2 = ‘tag2’
+# # Filtering the model by multiple tags
+# result = MyModel.objects.filter(Q(tags__contains=tag1) | Q(tags__contains=tag2))
+# # Accessing the filtered results
+# for item in result:
+#     # Do something with the filtered items
+#     print(item)
