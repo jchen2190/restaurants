@@ -1,1 +1,19 @@
-<h1>{{object.name}}</h1>>
+<h1>{{object.name}}</h1>
+
+<!-- <h1>Tags</h1>
+<ul>
+    {% for tag in object.tag.all %}
+        <li>{{tag.tag_field}}</li>
+    {% endfor %}
+</ul> -->
+
+<h1>Comments</h1>
+{% if object.comment_set.all.0.text %}
+<ul>
+    {% for comment in object.comment_set.all %}
+        <li>{{comment.text}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+    <h2>No comments yet</h2>
+{% endif %}

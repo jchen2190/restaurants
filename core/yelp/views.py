@@ -12,6 +12,7 @@ def homepage(request):
                     "restaurants": restaurants,
                     "all_tags": all_tags
                    }
+        print(restaurants)
         return render(request, "index.html", context)
     else:
         return HttpResponse("Invalid, only GET method is allowed")

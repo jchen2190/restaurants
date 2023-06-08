@@ -31,3 +31,11 @@ class Tag(models.Model):
 
     def __str__(self):
         return str(self.tag_field)
+    
+class Comment(models.Model):
+    post = models.ForeignKey(Restaurant, on_delete=models.CASCADE, name="post_comment" )
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.text)

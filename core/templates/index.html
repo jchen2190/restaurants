@@ -78,7 +78,15 @@
           <img class="bd-placeholder-img card-img-top" src="{{restaurant.image_url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></img>
           <div class="card-body">
               <h4>{{restaurant.name}}</h4>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              {% if object.comment_set.all %}
+                {% for comment in object.comment_set.all %}
+                    <p class="card-text">{{comment.text}}</p>
+                {% endfor %}
+              {% else %}
+                
+                <p class="card-text">No reviews yet</p>
+              {% endif %}
+              <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
               <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                       <a href="{{ restaurant.get_absolute_url }}" class="btn btn-sm btn-outline-primary">View</a>
